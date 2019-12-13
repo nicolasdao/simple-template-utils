@@ -1,0 +1,10 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 0.0.1 (2019-12-13)
+
+
+### Features
+
+* Add support for compiling string templates. ([577fd58](https://github.com/nicolasdao/simple-template-utils/commit/577fd589b154bd4e34300d81f1cc4e90d16f0fed))
