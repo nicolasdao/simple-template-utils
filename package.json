@@ -1,0 +1,39 @@
+{
+  "name": "simple-template-utils",
+  "version": "0.0.1",
+  "description": "Simple template utility to generate strings based on templates and input data.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolasdao/simple-template-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicolasdao/simple-template-utils/issues"
+  },
+  "homepage": "https://github.com/nicolasdao/simple-template-utils#readme",
+  "scripts": {
+    "dev": "TZ=UTC NODE_ENV=dev node-dev index.js",
+    "lint": "eslint src/ test/ --fix",
+    "push": "git push --follow-tags origin master & npm publish",
+    "rls": "standard-version --release-as",
+    "start": "TZ=UTC NODE_ENV=production node index.js",
+    "test": "mocha --exit",
+    "v": "node -e \"console.log(require('./package.json').version)\""
+  },
+  "author": "Nicolas Dao",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0",
+    "node-dev": "^4.0.0",
+    "standard-version": "^7.0.1"
+  },
+  "dependencies": {
+    "core-async": "^1.0.4",
+    "fast-glob": "^3.1.1",
+    "form-data": "^2.4.0",
+    "node-fetch": "^2.3.0",
+    "rimraf": "^3.0.0"
+  }
+}
