@@ -5,9 +5,9 @@ __*Simple Template Utils*__ helps generating strings based on templates and inpu
 
 > * [Install](#install)
 > * [Getting started](#getting-started)
-> * [FAQ]
+> * [FAQ](#faq)
 >	- [How to define default values?](#how-to-define-default-values?)
->	- [Can I use a string template instead the path to a template?](#can-i-use-a-string-template-instead-the-path-to-a template)
+>	- [Can I use a string template instead of the path to a template?](#can-i-use-a-string-template-instead-of-the-path-to-a-template)
 > * [About Neap](#this-is-what-we-re-up-to)
 > * [License](#license)
 
