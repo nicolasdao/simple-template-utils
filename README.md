@@ -1,5 +1,5 @@
 # Simple Template Utils &middot; [![Tests](https://travis-ci.org/nicolasdao/template-emptyjs.svg?branch=master)](https://travis-ci.org/nicolasdao/template-emptyjs) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Neap](https://neap.co/img/made_by_neap.svg)](#this-is-what-we-re-up-to)
-__*Simple Template Utils*__ helps generating strings based on templates and input data.
+__*Simple Template Utils*__ helps generating strings based on templates and input data. By default, the template uses parameters between the opening delimiter `{{` and closing delimiter `}}`, but those delimiters can be customized.
 
 # Table of Contents
 
@@ -8,6 +8,7 @@ __*Simple Template Utils*__ helps generating strings based on templates and inpu
 > * [FAQ](#faq)
 >	- [How to define default values?](#how-to-define-default-values?)
 >	- [Can I use a string template instead of the path to a template?](#can-i-use-a-string-template-instead-of-the-path-to-a-template)
+>	- [Does it support custom delimiters?](#does-it-support-custom-delimiters)
 > * [About Neap](#this-is-what-we-re-up-to)
 > * [License](#license)
 
@@ -138,6 +139,43 @@ template.compile({
 			}
 		}
 	}
+}).then(console.log)
+```
+
+## Does it support custom delimiters?
+
+Yes it does. The default delimiters are `{{` and `}}`. Let's respectively replace them with `{{{` and `}}}`:
+
+```js
+const template_01 = 
+`<!DOCTYPE html>
+<html>
+<head>
+	<title>{{{ project.page.title}}}</title>
+	<meta charset="utf-8" >
+	<meta name="version" content="{{{     version }}}">
+</head>
+<body>
+	<h1>{{{ project.blog.title }}}</h1>
+	{{{project.blog.content}}}
+</body>
+</html>`
+
+template.compile({
+	template: template_01,
+	data: {
+		version: '0.0.1',
+		project: {
+			page: {
+				title: 'Hello page'
+			},
+			blog: {
+				title: 'First blog post',
+				content: '<p>Lorem ipsum</p>'
+			}
+		}
+	},
+	delimiters: { open:'{{{', close: '}}}' }
 }).then(console.log)
 ```
 

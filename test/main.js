@@ -159,6 +159,30 @@ describe('#compile', () => {
 			done()
 		}).catch(done)
 	})
+	it('03 - Should support custom delimiters.', done => {
+		co(function *() {
+			const compiledFile01 = yield compile({
+				template: path.join(__dirname, './templates/t02.html'),
+				data: {
+					version: '0.0.1',
+					project: {
+						page: {
+							title: 'Hello page'
+						},
+						blog: {
+							title: 'First blog post',
+							content: '<p>Lorem ipsum</p>'
+						}
+					}
+				},
+				delimiters: { open:'{{{', close: '}}}' }
+			})
+
+			assert.equal(compiledFile01, correct_01, '01')
+
+			done()
+		}).catch(done)
+	})
 })
 
 

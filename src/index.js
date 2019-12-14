@@ -39,18 +39,23 @@ const _readFile = filePath => new Promise((onSuccess, onFailure) => fs.readFile(
 /**
  * Extracts tokens from an HTML template. 
  * 
- * @param  {String} template 		HTML template
+ * @param  {String} template 			HTML template
+ * @param {String} 	delimiters.open		Optional, default '{{'.
+ * @param {String} 	delimiters.close	Optional, default '}}'.
  * 
  * @return {String} output[].token  e.g., 'project.name'
  * @return {String} output[].ref  	Reference as it appears in the HTML 'template' (e.g., '{{ project.name }}')
  */
-const _getTokens = template => ((template || '').match(/{{(.*?)}}/g) || []).filter(v => v).map(v => {
-	const token = v.replace(/[{}\s]/g, '')
-	return {
-		token,
-		ref: v
-	}
-})
+const _getTokens = (template, delimiters) => {
+	const rx = new RegExp(`${delimiters.open}(.*?)${delimiters.close}`, 'g')
+	return ((template || '').match(rx) || []).filter(v => v).map(v => {
+		const token = v.replace(/[{}\s]/g, '')
+		return {
+			token,
+			ref: v
+		}
+	})
+}
 
 const _getData = (dataPath, defaultData, masterData, localFilesRepo) => co(function *(){
 	defaultData = defaultData || {}
@@ -69,16 +74,19 @@ const _getValue = (obj,prop) => {
 	return prop.split('.').reduce((acc,p) => acc && p ? acc[p] : acc, obj)
 }
 
-const _compile = (template, data) => {
+const _compile = (template, data, delimiters) => {
 	data = data || {}
 	template = template || ''
-	return _getTokens(template).reduce((acc, { token, ref }) => {
+	return _getTokens(template, delimiters).reduce((acc, { token, ref }) => {
 		const val = _getValue(data, token) || ''
 		return acc.replace(ref,val)
 	}, template)
 }
 
-const _isFile = s => !(!s || typeof(s) != 'string' || /(\n|{{)/.test(s))
+const _isFile = (s, openDelimiter) => {
+	const rx = new RegExp(`(\\n|${openDelimiter})`)
+	return !(!s || typeof(s) != 'string' || rx.test(s))
+}
 
 /**
  * Breaks down the HTML between its layout metadata and its raw HTML content.
@@ -116,23 +124,30 @@ const breakDownHTMltemplate = ({ filePath, mockLocalFilesRepo }) => co(function 
  * @param {String|Object}	data 				Data to fill the template with or path to a JSON file containing data.
  * @param {Object} 			defaultData 		Optional object used to default properties if the object located under 'data' does not exist.
  * @param {Object} 			masterData 			Optional object used to override properties in the object located under 'data' and 'defaultData'.
+ * @param {String} 			delimiters.open		Optional, default '{{'.
+ * @param {String} 			delimiters.close	Optional, default '}}'.
  * @param {Object} 			mockLocalFilesRepo	Optional object used to unit test this function.
  * 
  * @yield {String} 			output 			Original 'template' with all values replaced with data contained in 'data' and 'data'
  */
-const compileTemplate = ({ template, data, defaultData, masterData, mockLocalFilesRepo}) => co(function *(){
+const compileTemplate = ({ template, data, defaultData, masterData, delimiters, mockLocalFilesRepo }) => co(function *(){
 	const localFilesRepo = mockLocalFilesRepo || repos.localFiles
 	if (!template)
 		return ''
 
+	delimiters = delimiters || {}
+	delimiters.open = delimiters.open || '{{'
+	delimiters.close = delimiters.close || '}}'
+	
 	// Gets the template's content
-	const t = _isFile(template) ? yield _readFile(template) : template
+	const t = _isFile(template, delimiters.open) ? yield _readFile(template) : template
+
 
 	// Gets the data
-	const _data = _isFile(data) 
+	const _data = _isFile(data, delimiters.open) 
 		? yield _getData(data, defaultData, masterData, localFilesRepo) 
 		: _merge(defaultData||{}, data||{}, masterData||{})
-	return _compile(t, _data)
+	return _compile(t, _data, delimiters)
 })
 
 module.exports = {
