@@ -1,4 +1,4 @@
-# Simple Template Utils &middot; [![Tests](https://travis-ci.org/nicolasdao/template-emptyjs.svg?branch=master)](https://travis-ci.org/nicolasdao/template-emptyjs) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Neap](https://neap.co/img/made_by_neap.svg)](#this-is-what-we-re-up-to)
+# Simple Template Utils &middot; [![Tests](https://travis-ci.org/nicolasdao/simple-template-utils.svg?branch=master)](https://travis-ci.org/nicolasdao/simple-template-utils) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Neap](https://neap.co/img/made_by_neap.svg)](#this-is-what-we-re-up-to)
 __*Simple Template Utils*__ helps generating strings based on templates and input data. By default, the template uses parameters between the opening delimiter `{{` and closing delimiter `}}`, but those delimiters can be customized.
 
 # Table of Contents
