@@ -1,6 +1,6 @@
 {
   "name": "simple-template-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple template utility to generate strings based on templates and input data.",
   "main": "src/index.js",
   "repository": {
