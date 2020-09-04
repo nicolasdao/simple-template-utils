@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/nicolasdao/simple-template-utils/compare/v0.0.5...v0.0.6) (2020-09-04)
+
+
+### Bug Fixes
+
+* vulnerabilities ([0807de2](https://github.com/nicolasdao/simple-template-utils/commit/0807de2929ea4e006ea7ffd5ca101d446c20f132))
+
 ### [0.0.5](https://github.com/nicolasdao/simple-template-utils/compare/v0.0.4...v0.0.5) (2020-07-16)
 
 
